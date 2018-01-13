@@ -69,6 +69,23 @@ class ThirdActivity : AppCompatActivity() {
                 }
             }*/
         })
+        //--boton para la web--
+        imageButtonWeb.setOnClickListener{
+
+            val url=editTextWeb.text.toString()
+
+            val intentWeb=Intent()
+
+            intentWeb.action=Intent.ACTION_VIEW
+            intentWeb.data=Uri.parse("http://"+url)
+            startActivity(intentWeb)
+        }
+
+        buttonEmail.setOnClickListener{
+            val email= "paul.frankpc@gmail.com"
+        }
+
+
     }
 
     fun versionAntigua(phoneNumber:String){
