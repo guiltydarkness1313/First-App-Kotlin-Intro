@@ -15,6 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //forzar icono en el Action Bar
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setIcon(R.mipmap.ic_launcher)
+
+
+
         Toast.makeText(this,"hola mundo",Toast.LENGTH_LONG).show()
 
         buttonCalcular.setOnClickListener{
@@ -34,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         val intent=Intent(activity,nextActivity)
         intent.putExtra("saludo",SALUDO)
         activity.startActivity(intent)
-        activity.finish()
     }
 
 }

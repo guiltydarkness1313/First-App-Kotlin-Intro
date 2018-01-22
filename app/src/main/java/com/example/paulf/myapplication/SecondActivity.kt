@@ -12,6 +12,10 @@ class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+        //Flecha de retorno
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+
         //casting de widgets kotlin
         val textView=findViewById(R.id.textViewIntent) as TextView
         //get extras de otro activity kotlin
@@ -27,7 +31,6 @@ class SecondActivity : AppCompatActivity() {
         btnToThirdActivity.setOnClickListener{
             val launcher= Intent(this,ThirdActivity::class.java)
             startActivity(launcher)
-            finish()
         }
 
     }

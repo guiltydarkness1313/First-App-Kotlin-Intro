@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_third.*
@@ -20,6 +22,7 @@ class ThirdActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         //imageButtonCamera
         imageButtonPhone!!.setOnClickListener(object: View.OnClickListener{
@@ -80,14 +83,46 @@ class ThirdActivity : AppCompatActivity() {
             intentWeb.data=Uri.parse("http://"+url)
             startActivity(intentWeb)
         }
-
+        //llamado para el email
         buttonEmail.setOnClickListener{
             val email= "paul.frankpc@gmail.com"
+
+            val intentEmail=Intent(Intent.ACTION_SEND,Uri.parse(email))
+            intentEmail.type="plain/text"
+            intentEmail.putExtra(Intent.EXTRA_SUBJECT,"titulo de email")
+            intentEmail.putExtra(Intent.EXTRA_TEXT,"Que hay prro?")
+            intentEmail.putExtra(Intent.EXTRA_EMAIL, arrayOf("alguien@gmail.com","alguienmas@gmail.com"))
+            startActivity(Intent.createChooser(intentEmail,"Elige tu cliente de correo"))
         }
 
 
+        //boton de llamada sin permisos
+        buttonContactPhone!!.setOnClickListener{
+            val intentCall=Intent(Intent.ACTION_DIAL,Uri.parse("tel:943237768"))
+            startActivity(intentCall)
+        }
+
+        //boton para la camara
+        imageButtonCamera!!.setOnClickListener{
+            val intentCamera=Intent("android.media.action.IMAGE_CAPTURE")
+            startActivity(intentCamera)
+        }
     }
 
+    override fun onCreateOptionsMenu(menu:Menu?):Boolean{
+        menuInflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menuContactos->{
+                val intentContactos=Intent(Intent.ACTION_VIEW, Uri.parse("content://contacts/people"))
+                startActivity(intentContactos)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     fun versionAntigua(phoneNumber:String){
         val intentCall=Intent(Intent.ACTION_CALL, Uri.parse("tel:"+phoneNumber))
         if(ChecarPermiso(Manifest.permission.CALL_PHONE)){
